@@ -33,13 +33,14 @@ bool cercaWidgetResult::filtra(QString name)
 {
     cercaWidgetResult cer;
     //if(cer.exec()){
+    cer.exec();
         auto resul =m->cercaR(name);
         for(auto &x: resul){
-            //widget w=new widget(&x);
-
-            //result->addWidget(w);
+            widget *w=new widget(x);
+            result->addWidget(w);
+            setLayout(result);
         }
-        show();
+        //show();
         return true;
    // }
     //else {

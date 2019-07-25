@@ -25,6 +25,7 @@ private:
 
 
 
+
 private slots:
     void setFields(const QString &);
     ricette* addRicetta(const QString&);

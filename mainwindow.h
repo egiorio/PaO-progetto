@@ -27,6 +27,8 @@ private:
     QVBoxLayout *centralGroupBox;
 
 
+
+
 public:
     mainwindow(QWidget *p =nullptr);
     ~mainwindow() override = default;

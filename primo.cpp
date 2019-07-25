@@ -2,9 +2,7 @@
 
 primo::primo(string i, double p, bool c, string s): ricette(i,p,c), tipo(s){}
 
-primo::~primo(){
-
-}
+primo::~primo(){}
 
 primo* primo::clone() const{
     return  new primo(*this);
@@ -29,22 +27,16 @@ void primo::serialize(QXmlStreamWriter & output) const
 {
     output.writeStartElement("Ricette - Primo");
 
-    output.writeStartElement("Nome");
-    output.writeCharacters(QString::fromStdString(getNome()));
-    output.writeEndElement();
-    output.writeStartElement(("Prezzo"));
-    output.writeCharacters(QString::number(getPrezzo()));
-    output.writeEndElement();
-    output.writeStartElement("Cottura");
-    output.writeCharacters(getCottura() ? "true" : "false");
-    output.writeEndElement();
+    ricette::serialize(output);
+
     output.writeStartElement("Tipo");
     output.writeCharacters(QString::fromStdString(getTipo()));
     output.writeEndElement();
 
-    output.writeEndElement();
+    /*output.writeEndElement();
     if(output.hasError())
         throw  std::exception();
+*/
 
 
 
@@ -57,7 +49,7 @@ primo *primo::create(QXmlStreamReader & r) const
     std::string nome = "Senza nome";
     double prezzo = 0.0;
     bool cottura = true;
-    std::string tipo = "Pasta";
+    std::string tipo = "Onnivora";
     if(r.readNextStartElement() && r.name()=="nome")
         nome = r.readElementText().toStdString();
     if(r.readNextStartElement() && r.name()=="prezzo")

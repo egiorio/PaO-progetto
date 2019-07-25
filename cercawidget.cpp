@@ -60,6 +60,6 @@ void cercaWidget::cerca()
     c.filtra(getNome());
     //c.exec();
 
-    //show();
+    show();
 
 }

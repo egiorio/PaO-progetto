@@ -13,9 +13,10 @@ private:
     class nodo{
     public:
         DeepPtr<T> info;
-        nodo *prev, *next;
+
+        nodo  *prev, *next;
         nodo(const DeepPtr<T> &, nodo* = nullptr, nodo* = nullptr);
-        nodo(const T&, nodo* = nullptr, nodo* = nullptr);
+        //nodo(const T&, nodo* = nullptr, nodo* = nullptr);
         nodo(DeepPtr<T> &&, nodo* =nullptr, nodo* = nullptr);
         nodo(T* , nodo * = nullptr, nodo * =nullptr);
         ~nodo();
@@ -28,7 +29,7 @@ public:
         friend class Container;
     public:
         nodo* pos;
-        Iterator(nodo* = nullptr); //costruttore
+        Iterator(nodo * = nullptr); //costruttore
 
         Iterator& operator++(); // prefisso
         Iterator operator++(int); //postfisso
@@ -42,7 +43,7 @@ public:
         T* operator->() const; //accesso a membro
      };
 
-    class const_iterator{
+    class const_iterator{ //template per la classe const
         friend class Container;
     public:
         nodo* pos;
@@ -87,13 +88,19 @@ public:
     Iterator end();
     Iterator end() const;
     const_iterator cend() const;
+    //forse serve cons_iterator end() const; ???
      //iteratori per inserimento
     Iterator insert(const Iterator&, const T&);
+    //Iterator insert(const Iterator&, const T*);
     void insert(Iterator, unsigned int);
-    //void push_back(const T&);
-    void push_back(T* t);
+
+
+    void push_back(const T&);
+    //void push_back(T* t);
 
     void push_front(const T&);
+
+
     //iteratori per la cancellazione
     Iterator erase(Iterator);
     Iterator erase(Iterator, Iterator);
@@ -118,11 +125,11 @@ public:
 //costruttore di nodo
 template<class T>
 Container<T>::nodo::nodo(const DeepPtr<T> &t, nodo*p, nodo*n) : info(t), prev(p), next(n) {}
-
+/*
 template<class T>
 Container<T>::nodo::nodo(const T &t, nodo *n, nodo*p):
-    info(t), next(n), prev(p){}
-
+    info(t),  prev(p), next(n) {}
+*/
 template <class T>
 Container<T>::nodo::nodo(T *t, nodo *n, nodo*p):
     info(t), next(n), prev(p){}
@@ -335,30 +342,22 @@ Container<T>::~Container(){
 //inserimento di un elemento prima dell'elemento it
 template <class T>
 typename Container<T>::Iterator Container<T>::insert(const Iterator &it, const T &t){
-    if(primo ==nullptr){
+    if(primo == nullptr){
         //se ho una lista vuota
         primo = ultimo = new nodo(DeepPtr<T>(&t));
         size=1;
         return  Iterator(primo);
     }
-    nodo* a= new nodo(DeepPtr<T>(&t), it.pos->prev, it.pos);
-    (it.pos != primo) ? it.pos->prev->next = a : primo = a;
-    (it.pos != ultimo) ? it.pos->prev->next = a : ultimo = a;
+    else{
+        nodo* a= new nodo(DeepPtr<T>(&t), it.pos, it.pos->next);
+        //nodo * a= new nodo(Deeptr<T>(&t), it.pos->prev, it.pos);
+        (it.pos != primo) ? it.pos->prev->next = a : primo = a;
+        (it.pos != ultimo) ? it.pos->prev->next = a : ultimo = a;
 
-    size++;
-    return  it.pos->prev;
+        size++;
+        return  it.pos->prev;
+    }
 
-   /* nodo* a= new nodo(t, it.pos, it.pos->prev);
-    it.pos->prev = a;
-    if(it != cbegin())
-        a->prev->next = a;
-    else {
-        primo = a;
-           }
-
-    size++;
-    return Iterator(a);
-*/
 }
 
 //inserimento prima dell'elemento puntato
@@ -475,7 +474,7 @@ typename Container<T>::Iterator Container<T>::begin(){
 //iteratore alla fine
 template <class T>
 typename Container<T>::Iterator Container<T>::end(){
-    return Iterator(ultimo->next); //quindi a null
+    return Iterator(ultimo); //quindi a null
 
 }
 
@@ -483,7 +482,6 @@ template <class T>
 typename Container<T>::Iterator Container<T>::begin()const{
     return Iterator(primo);
 }
-
 template <class T>
 typename Container<T>::Iterator Container<T>::end() const{
     return Iterator(ultimo);
@@ -496,8 +494,8 @@ typename Container<T>::const_iterator Container<T>::cbegin() const{
 
 template <class T>
 typename Container<T>::const_iterator Container<T>::cend()const{
-    //return const_iterator(ultimo->next);
-    return const_iterator(ultimo);
+    return const_iterator(ultimo->next);
+    //return const_iterator(ultimo);
 }
 
 template <class T>
@@ -540,13 +538,31 @@ template <class T>
 void Container<T>::push_front(const T& t){
     insert(begin(), t);
 }
-/*
+
 //push_back
 template <class T>
 void Container<T>::push_back(const T& t){
     insert(end(), t);
+   /* ultimo = new nodo(t, ultimo, nullptr);
+    if( primo == nullptr)
+        primo = ultimo;
+    else {
+        (ultimo->prev)->next = ultimo;
+        size++;
+    */
+    /*
+    size++;
+        if (!primo)
+            primo = ultimo = new nodo(t);
+        else{
+            ultimo->next = new nodo(t, ultimo);
+            ultimo= ultimo->next;
+        }
+        */
 }
-*/
+
+
+/*
 template <class T>
 void Container<T>::push_back(T* t){
     nodo* p= primo;
@@ -556,7 +572,8 @@ void Container<T>::push_back(T* t){
     }
     p->next = new nodo(t, p, nullptr);
 }
-/*
+
+
 template <class T>
 void Container<T>::push_back(const T& t){
     //nodo* p=primo;

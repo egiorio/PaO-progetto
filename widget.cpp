@@ -12,7 +12,7 @@
 #include <QTextEdit>
 
 widget::widget( ricette* pi,  QWidget *parent):
-    QFrame (parent), p(pi)
+    QFrame(parent), p(pi)
 {
     QHBoxLayout *main_l = new QHBoxLayout;
     QVBoxLayout *special=new QVBoxLayout;

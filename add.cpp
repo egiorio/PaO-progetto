@@ -149,16 +149,20 @@ main_l->addLayout(menu_box);
 
 QPushButton *ok_button= new QPushButton("Aggiungi");
 QPushButton *cancel= new QPushButton("Cancella");
-//buttons->addStretch(1);
+buttons->addStretch(1);
 buttons->addWidget(ok_button);
 buttons->addWidget(cancel);
 main_l->addLayout(buttons);
 
-connect(ok_button, &QPushButton::clicked, this, &add::accept);
-connect(cancel, &QPushButton::clicked, this, &add::reject );
-
-
 setLayout(main_l);
+
+
+//CONNECT XK CANCEL NON FUNZIONA??
+
+connect(ok_button, &QPushButton::clicked, this, &add::accept);
+//connect(cancel, &QPushButton::clicked, this, &add::reject );
+connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
+
 
 
 }

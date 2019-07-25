@@ -16,9 +16,7 @@
 #include<QWidget>
 #include<QMessageBox>
 #include <QGroupBox>
-#include <QGridLayout>
-#include <QTableWidget>
-#include<QTableWidgetItem>
+
 #include <QFileDialog>
 #include <QPushButton>
 #include <QScrollArea>
@@ -66,12 +64,21 @@ mainwindow::mainwindow(QWidget* parent):
     toolbar->addAction(cer);
     addToolBar(toolbar);
 
+    QLineEdit* searchBar = new QLineEdit();
+    searchBar->setPlaceholderText("ricerca");
+     toolbar->addWidget(searchBar);
+
+     connect(searchBar, SIGNAL(textChanged(const QString&)), this, SLOT(textFilterChanged()));
+     connect(searchBar, SIGNAL(clicked()), searchBar, SLOT(clear()));
+
     connect(add, SIGNAL(triggered()),
             this, SLOT(addOrder()));
     //connect(add, &QAction::triggered, this, &mainwindow::addOrder);
 
    connect(cer, SIGNAL(triggered()),
             this, SLOT(cercaR()));
+
+
 
 
 

@@ -3,6 +3,7 @@
 
 
 #include <QXmlStreamWriter>
+#include <QXmlStreamWriter>
 #include<string>
 #include<map>
 using std::string;
@@ -15,11 +16,9 @@ private:
     double prezzo;
     bool cottura;
     virtual ricette* create(QXmlStreamReader&) const = 0;
-protected:
+/*protected:
     static std::map<std::string, ricette*>mapp;
-
-
-
+    */
 public:
     ricette();
     ricette(string nome,  double prezzo,  bool cottura);
@@ -35,7 +34,7 @@ public:
      virtual bool operator==(const ricette&) const =0;
 
      //SERIALIZZAZIONE DEI DATI
-     virtual void serialize(QXmlStreamWriter&) const = 0;
+     virtual void serialize(QXmlStreamWriter&) const ;
      static ricette* unserialize(QXmlStreamReader&);
 
 

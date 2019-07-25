@@ -44,19 +44,19 @@ void Model::load(const QString &path)
 ricette* Model::addO(const string type, const string name, double prezzo, bool cottura, const string altro){
        if(type=="Primo"){
             primo* p=new primo(name, prezzo, cottura, altro);
-            contenitore.push_back((p));
+            contenitore.push_back(*(p));
             return p;
         }
 
         else {
             if(type=="Secondo"){
                 secondo* p=new secondo(name, prezzo, cottura, altro);
-                //contenitore.push_back(*p);
+                contenitore.push_back(*p);
                 return p;
             }
             else{
                 dolce* p=new dolce(name, prezzo, cottura, altro);
-                //contenitore.push_back(*p);
+                contenitore.push_back(*p);
                 return p;
             }
 }
@@ -70,7 +70,10 @@ std::vector<ricette*> Model::cercaR(const QString name)
     std::vector<ricette*> to_ret;
     for(auto it=contenitore.begin(); it!= contenitore.end(); ++it){
         if(dynamic_cast<primo*>(&(*it))){
+
             primo* p=dynamic_cast<primo*>(&(*it));
+
+
             if(p->getNome() == nome)
                 to_ret.push_back(p);
            }

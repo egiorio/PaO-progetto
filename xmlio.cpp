@@ -8,7 +8,6 @@
 
 #include<QFile>
 #include<QSaveFile>
-//#include<QXmlSimpleReader>
 #include <QXmlStreamReader>
 #include<QXmlStreamWriter>
 #include<QDebug>
@@ -33,7 +32,7 @@ Container<ricette> xmlIO::read() const
     QXmlStreamReader input(&file);
     if(input.readNextStartElement() && input.name() == "root"){
         try {
-            contenitore.push_back((ricette::unserialize(input)));
+            contenitore.push_back(*(ricette::unserialize(input)));
         } catch (std::string s) {
             qWarning() <<"Errore in lettura";
         }
@@ -63,19 +62,25 @@ void xmlIO::write(const Container<ricette> & contenitore) const
 
     output.writeStartElement("root");
 
+    /*
     auto c = contenitore.begin();
+
  //MOLTO PROBABILMEnte NON ENTRA MAI QUI
     while(c != contenitore.end()) {
         (*c).serialize(output);
         ++c;
-
     }
-            output.writeEndElement();
-            output.writeEndDocument();
 
-            file.commit();
-            if( output.hasError())
-                throw std::exception();
+    */
+    for( auto cit = contenitore.begin(); cit != contenitore.end(); ++cit)
+        (*cit).serialize(output);
+
+    output.writeEndElement();
+    output.writeEndDocument();
+
+    file.commit();
+    if(output.hasError())
+       throw std::exception();
 
 
 
