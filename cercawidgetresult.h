@@ -16,8 +16,8 @@ private:
     Model *m;
 
 public:
-    explicit cercaWidgetResult(QWidget * parent = nullptr);
-    bool filtra(QString);
+    explicit cercaWidgetResult(Model*, QWidget * parent = nullptr);
+    bool filtra(QString, string);
 
 public slots:
     int eccez();

@@ -49,9 +49,23 @@ ricette *ricette::unserialize(QXmlStreamReader & r)
 */
 }
 
+void ricette::XML(QXmlStreamWriter &out) const
+{
+    out.writeStartElement("ricette: ");
+    out.writeCharacters(QString::fromStdString(nome));
+    out.writeEndElement();
+
+    out.writeStartElement(("Prezzo"));
+    out.writeCharacters(QString::number(prezzo));
+    out.writeEndElement();
+    out.writeStartElement("Cottura");
+    out.writeCharacters(cottura ? "true" : "false");
+    out.writeEndElement();
+}
+/*
 void ricette::serialize(QXmlStreamWriter & w) const{
     w.writeStartElement("Nome ricetta:");
-    w.writeCharacters(QString::fromStdString(nome));
+    w.writeCharacters(QString::fromStdString(getNome()));
     w.writeEndElement();
 
     w.writeStartElement(("Prezzo"));
@@ -63,3 +77,4 @@ void ricette::serialize(QXmlStreamWriter & w) const{
 
 
 }
+*/

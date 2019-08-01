@@ -20,6 +20,8 @@ public:
    bool operator==(const ricette&) const override;
 
    virtual void serialize(QXmlStreamWriter&) const override;
+
+    void XML(QXmlStreamWriter& out) const;
 };
 
 #endif // SECONDO_H

@@ -29,7 +29,7 @@ public:
     void load(const QString&);
     ricette* addO(const string,  const string, double, bool, const string);
 
-    std::vector<ricette*> cercaR(const QString);
+    std::vector<ricette*> cercaR(const QString, const string);
 };
 
 #endif // MODEL_H

@@ -101,7 +101,7 @@ tipo_ricetta->addItem(tr("Dolce"));
 main_l->addWidget(tipo_ricetta);
 
 connect(tipo_ricetta, SIGNAL(currentTextChanged(const QString&)), this, SLOT(setFields(const QString &)));
-connect(tipo_ricetta, SIGNAL(currentTextChanged(const QString&)), this, SLOT(addRicetta(const QString &)));
+
 
 
 
@@ -160,6 +160,7 @@ setLayout(main_l);
 //CONNECT XK CANCEL NON FUNZIONA??
 
 connect(ok_button, &QPushButton::clicked, this, &add::accept);
+//connect(tipo_ricetta, SIGNAL(currentTextChanged(const QString&)), this, SLOT(addRicetta(const QString &)));
 //connect(cancel, &QPushButton::clicked, this, &add::reject );
 connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
 

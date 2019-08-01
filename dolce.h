@@ -18,7 +18,9 @@ public:
     virtual std::string TipoR() const override;
     bool operator==(const ricette&) const;
 
+
     virtual void serialize(QXmlStreamWriter&) const override;
+    void XML(QXmlStreamWriter& out) const;
 };
 
 #endif // DOLCE_H

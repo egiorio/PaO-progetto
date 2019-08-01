@@ -10,7 +10,7 @@ public:
     DeepPtr(const DeepPtr&); //copia con clonazione polimorfa
     DeepPtr& operator=(const DeepPtr&);
     T* operator->() const;
-    T& operator*() const;
+    T* operator*() const;
     bool operator==(const DeepPtr& ) const;
     bool operator!=(const DeepPtr&)const;
     ~DeepPtr(); //distruttore polimorfo
@@ -45,8 +45,8 @@ T* DeepPtr<T>::operator->() const{
     return p;
 }
 template<class T>
-T& DeepPtr<T>::operator*() const{
-    return *p;
+T* DeepPtr<T>::operator*() const{
+    return p;
 }
 template<class T>
 DeepPtr<T>::~DeepPtr(){ if(p != nullptr) delete p; }

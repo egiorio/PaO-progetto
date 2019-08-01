@@ -34,8 +34,10 @@ public:
      virtual bool operator==(const ricette&) const =0;
 
      //SERIALIZZAZIONE DEI DATI
-     virtual void serialize(QXmlStreamWriter&) const ;
+     virtual void serialize(QXmlStreamWriter&) const =0;
      static ricette* unserialize(QXmlStreamReader&);
+
+     virtual void XML(QXmlStreamWriter& out) const;
 
 
 

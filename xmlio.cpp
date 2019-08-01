@@ -58,22 +58,19 @@ void xmlIO::write(const Container<ricette> & contenitore) const
 
     output.setAutoFormatting(true);
     output.writeStartDocument();
-    output.writeComment("File di salvataggio");
+    output.writeComment("File di salvataggio - Non modificare!!");
 
     output.writeStartElement("root");
 
-    /*
-    auto c = contenitore.begin();
 
- //MOLTO PROBABILMEnte NON ENTRA MAI QUI
-    while(c != contenitore.end()) {
-        (*c).serialize(output);
-        ++c;
+    auto cont = contenitore.begin();
+    while (cont  != contenitore.end()) {
+        (cont)->XML(output);
+        //(cont)->serialize(output);
+        ++cont;
+
     }
 
-    */
-    for( auto cit = contenitore.begin(); cit != contenitore.end(); ++cit)
-        (*cit).serialize(output);
 
     output.writeEndElement();
     output.writeEndDocument();
@@ -86,3 +83,4 @@ void xmlIO::write(const Container<ricette> & contenitore) const
 
 
 }
+

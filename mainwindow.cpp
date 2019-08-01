@@ -54,26 +54,21 @@ mainwindow::mainwindow(QWidget* parent):
 
      //creo una tool bar
     QToolBar *toolbar= new QToolBar();
-    QAction *add = new QAction("Aggiungi");
 
-    //QAction *del = new QAction("Elimina");
-    QAction *cer = new QAction("Cerca");
+    QAction *add = new QAction("Aggiungi"); //pulsante per aggiungere una ricetta
+
+
+    QAction *cer = new QAction("Cerca"); //pulsante per cercare una ricetta
     toolbar->addAction(add);
 
-    //toolbar->addAction(del);
+
     toolbar->addAction(cer);
     addToolBar(toolbar);
 
-    QLineEdit* searchBar = new QLineEdit();
-    searchBar->setPlaceholderText("ricerca");
-     toolbar->addWidget(searchBar);
-
-     connect(searchBar, SIGNAL(textChanged(const QString&)), this, SLOT(textFilterChanged()));
-     connect(searchBar, SIGNAL(clicked()), searchBar, SLOT(clear()));
-
+    //connect per aggiungi e cerca
     connect(add, SIGNAL(triggered()),
             this, SLOT(addOrder()));
-    //connect(add, &QAction::triggered, this, &mainwindow::addOrder);
+
 
    connect(cer, SIGNAL(triggered()),
             this, SLOT(cercaR()));
@@ -85,7 +80,9 @@ mainwindow::mainwindow(QWidget* parent):
 
     //setWindowIcon(QIcon(":/file.svg")); // icona del programma
 
-        //zona centrale
+    //zona centrale
+
+   //scrool verticale
     QScrollArea *scroll= new QScrollArea;
     QWidget *widget = new QWidget;
     centralGroupBox->setSizeConstraint(QLayout::SetMinAndMaxSize);
@@ -106,9 +103,12 @@ QSize mainwindow::sizeHint() const {
 }
 
 void mainwindow::addOrder()
-{
+{ //funzione che aggiunge una ricetta alla gui. crea un oggetto di tipo agg, controlla se l'oggetto esiste, si SI crea il widget che ha anche la possibilità di essere rimosso
     add agg;
     agg.exec();
+    if(agg.getNome() != "" && agg.getPrezzo() != 0 && (agg.getTipo() == "Carne" ||agg.getTipo() == "Pesce") ||
+                                                        agg.getTipo() == "Vegetariana" || agg.getTipo() == "Onnivora" ||
+                                                        agg.getTipo() == "Vegana" || agg.getTipo() == "non vegana"){
     widget *r=new widget(m->addO(
                              agg.getType(),
                              agg.getNome(),
@@ -118,14 +118,17 @@ void mainwindow::addOrder()
                              )
                     );
 
-    centralGroupBox->addWidget(r);
+        centralGroupBox->addWidget(r);
 
         //SEGNALE PER LA RIMOZIONE DI UNA RICETTA
     connect(r, &widget::remove, this, &mainwindow::removeR);
+}
+
+
 
 }
 
-void mainwindow::removeR(widget *o)
+void mainwindow::removeR(widget *o) //rimozione del widget e dal contenitore dell'ogg o
 {
     centralGroupBox->removeWidget(o);
     ricette* a=o->getRicetta();
@@ -133,9 +136,9 @@ void mainwindow::removeR(widget *o)
     delete o;
 }
 
-void mainwindow::cercaR()
+void mainwindow::cercaR() //slot per la ricerca di una ricetta
 {
-    cercaWidget c;
+    cercaWidget c(m, nullptr);
     c.exec();
 }
 

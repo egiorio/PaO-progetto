@@ -4,9 +4,9 @@
 
 #include <QScrollArea>
 
-cercaWidgetResult::cercaWidgetResult( QWidget* parent):
+cercaWidgetResult::cercaWidgetResult(Model* model, QWidget* parent):
     QDialog (parent),
-    m(new Model),
+    m(model),
     result(new QVBoxLayout)
 {
     //setMaximumWidth(300);
@@ -29,20 +29,20 @@ cercaWidgetResult::cercaWidgetResult( QWidget* parent):
     show();
 }
 
-bool cercaWidgetResult::filtra(QString name)
+bool cercaWidgetResult::filtra(QString name, string tipo)
 {
-    cercaWidgetResult cer;
+    cercaWidgetResult cer(m);
     //if(cer.exec()){
     cer.exec();
-        auto resul =m->cercaR(name);
-        for(auto &x: resul){
+        auto resul = m->cercaR(name, tipo);
+        for(auto *x : resul){
             widget *w=new widget(x);
             result->addWidget(w);
             setLayout(result);
         }
         //show();
         return true;
-   // }
+   //}
     //else {
       //  return false;
     //}

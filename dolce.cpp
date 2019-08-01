@@ -44,7 +44,7 @@ void dolce::serialize(QXmlStreamWriter & output) const
 {
     output.writeStartElement("Ricette-Dolce");
 
-    /*output.writeStartElement("Nome");
+   output.writeStartElement("Nome");
     output.writeCharacters(QString::fromStdString(getNome()));
      output.writeEndElement();
     output.writeStartElement("Prezzo");
@@ -53,11 +53,23 @@ void dolce::serialize(QXmlStreamWriter & output) const
     output.writeStartElement("Cottura");
     output.writeCharacters(getCottura() ?"true" : "false");
      output.writeEndElement();
-     */
-    ricette::serialize(output);
-    output.writeCharacters("Categoria Alimentare");
+
+
+    output.writeStartElement("Categoria Alimentare");
     output.writeCharacters(QString::fromStdString(getCategoria()));
      output.writeEndElement();
 
      output.writeEndElement();
+}
+
+void dolce::XML(QXmlStreamWriter &out) const
+{
+    out.writeStartElement("Dolce");
+    ricette::XML(out);
+
+    out.writeStartElement("Categoria Alimentare: ");
+    out.writeCharacters(QString::fromStdString(categoria));
+    out.writeEndElement();
+
+    out.writeEndElement();
 }

@@ -39,7 +39,7 @@ public:
         bool operator==(const Iterator &it) const; //ugualianza
         bool operator!=(const Iterator &it) const; //disugualianza
 
-        T& operator*() const; //deferenziazione
+        T* operator*() const; //deferenziazione
         T* operator->() const; //accesso a membro
      };
 
@@ -57,7 +57,7 @@ public:
         bool operator==(const const_iterator &it) const;
         bool operator!=(const const_iterator &it) const;
 
-        T& operator*() const;
+        T* operator*() const;
         T* operator->() const;
 
 
@@ -88,7 +88,8 @@ public:
     Iterator end();
     Iterator end() const;
     const_iterator cend() const;
-    //forse serve cons_iterator end() const; ???
+    Iterator last() const;
+    const_iterator clast() const;
      //iteratori per inserimento
     Iterator insert(const Iterator&, const T&);
     //Iterator insert(const Iterator&, const T*);
@@ -204,7 +205,7 @@ bool Container<T>::Iterator::operator!=(const Iterator&it)const{
 
 //deferenziazione
 template <class T>
-T& Container<T>::Iterator::operator*() const{
+T* Container<T>::Iterator::operator*() const{
     if( pos != nullptr)
         return *(pos->info);
 
@@ -213,7 +214,7 @@ T& Container<T>::Iterator::operator*() const{
 template <class T>
 T* Container<T>::Iterator::operator->() const{
     if(pos != nullptr)
-        return pos->info;
+        return *(pos->info);
 }
 
 //costruttore const iterator
@@ -268,16 +269,16 @@ bool Container<T>::const_iterator::operator!=(const const_iterator &it) const{
 
 //deferenziazione
 template <class T>
-T& Container<T>::const_iterator::operator*()const{
+T* Container<T>::const_iterator::operator*()const{
     if(pos != nullptr)
-        return *(pos->info);
+        return (pos->info);
 }
 
 //accesso a membro
 template <class T>
 T* Container<T>::const_iterator::operator->()const{
     if(pos != nullptr)
-        return &(pos->info);
+        return *(pos->info);
 }
 
 
@@ -350,9 +351,20 @@ typename Container<T>::Iterator Container<T>::insert(const Iterator &it, const T
     }
     else{
         nodo* a= new nodo(DeepPtr<T>(&t), it.pos, it.pos->next);
-        //nodo * a= new nodo(Deeptr<T>(&t), it.pos->prev, it.pos);
-        (it.pos != primo) ? it.pos->prev->next = a : primo = a;
-        (it.pos != ultimo) ? it.pos->prev->next = a : ultimo = a;
+        //nodo* a= new nodo(DeepPtr<T>(&t), it.pos->prev, it.pos);
+        if(it.pos != primo)
+            it.pos->prev->next = a;
+        else {
+            primo=a;
+        }
+        if(it.pos!= ultimo)
+            it.pos->prev->next = a;
+        else {
+            ultimo = a;
+        }
+
+        //(it.pos != primo) ? it.pos->prev->next = a : primo = a;
+        //(it.pos != ultimo) ? it.pos->prev->next = a : ultimo = a;
 
         size++;
         return  it.pos->prev;
@@ -474,7 +486,8 @@ typename Container<T>::Iterator Container<T>::begin(){
 //iteratore alla fine
 template <class T>
 typename Container<T>::Iterator Container<T>::end(){
-    return Iterator(ultimo); //quindi a null
+    return Iterator(ultimo);
+
 
 }
 
@@ -494,8 +507,16 @@ typename Container<T>::const_iterator Container<T>::cbegin() const{
 
 template <class T>
 typename Container<T>::const_iterator Container<T>::cend()const{
-    return const_iterator(ultimo->next);
-    //return const_iterator(ultimo);
+    return const_iterator(ultimo);
+}
+template <class T>
+typename Container<T>::const_iterator Container<T>::clast() const{
+    return const_iterator(ultimo);
+}
+
+template <class T>
+typename Container<T>::Iterator Container<T>::last() const{ //ritorna il past the end
+    return Iterator(ultimo->next);
 }
 
 template <class T>
@@ -543,48 +564,6 @@ void Container<T>::push_front(const T& t){
 template <class T>
 void Container<T>::push_back(const T& t){
     insert(end(), t);
-   /* ultimo = new nodo(t, ultimo, nullptr);
-    if( primo == nullptr)
-        primo = ultimo;
-    else {
-        (ultimo->prev)->next = ultimo;
-        size++;
-    */
-    /*
-    size++;
-        if (!primo)
-            primo = ultimo = new nodo(t);
-        else{
-            ultimo->next = new nodo(t, ultimo);
-            ultimo= ultimo->next;
-        }
-        */
 }
-
-
-/*
-template <class T>
-void Container<T>::push_back(T* t){
-    nodo* p= primo;
-    while (p->next) {
-        p=p->next;
-
-    }
-    p->next = new nodo(t, p, nullptr);
-}
-
-
-template <class T>
-void Container<T>::push_back(const T& t){
-    //nodo* p=primo;
-    //while (p->next) {
-     //   p=p->next;
-      // }
-
-    //p->next = new nodo(t, primo, nullptr);
-   // ultimo->next = new nodo(t, ultimo, nullptr);
-    //ultimo=ultimo->next;
-}
-*/
 
 #endif // CONTAINER1_H

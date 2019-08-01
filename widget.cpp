@@ -72,7 +72,7 @@ widget::widget( ricette* pi,  QWidget *parent):
         else {
             if(dynamic_cast<dolce*>(p)){
                dolce* d=dynamic_cast<dolce*>(p);
-            QLabel *categoria=new QLabel("Categoria alimentare" +  QString::fromStdString(d->getCategoria()));
+            QLabel *categoria=new QLabel("Categoria alimentare: " +  QString::fromStdString(d->getCategoria()));
             cat_l->addWidget(categoria);
             cat_l->addStretch(1);
             special->addLayout(cat_l);

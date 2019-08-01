@@ -44,7 +44,7 @@ void secondo::serialize(QXmlStreamWriter & output) const
 {
      output.writeStartElement("Ricette-Secondo");
 
-    /* output.writeStartElement("Nome");
+     output.writeStartElement("Nome");
      output.writeCharacters(QString::fromStdString(getNome()));
       output.writeEndElement();
      output.writeStartElement("Prezzo");
@@ -53,12 +53,24 @@ void secondo::serialize(QXmlStreamWriter & output) const
      output.writeStartElement("Cottura");
      output.writeCharacters(getCottura() ? "true" : "false");
       output.writeEndElement();
-      */
-     ricette::serialize(output);
+
+     //ricette::serialize(output);
 
      output.writeStartElement("Classe Alimentare");
      output.writeCharacters(QString::fromStdString(getClasse()));
       output.writeEndElement();
 
       output.writeEndElement();
+}
+
+void secondo::XML(QXmlStreamWriter &out) const
+{
+    out.writeStartElement("Secondo");
+    ricette::XML(out);
+
+    out.writeStartElement("Classe Alimentare: ");
+    out.writeCharacters(QString::fromStdString(classeAlimentare));
+    out.writeEndElement();
+
+    out.writeEndElement();
 }

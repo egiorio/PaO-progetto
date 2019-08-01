@@ -15,15 +15,17 @@ class cercaWidget: public QDialog
 {
     Q_OBJECT
 private:
-    ricette* r;
+
     Model *m;
     QLineEdit *name;
     QVBoxLayout *result;
+    QComboBox *tipo_ricetta;
 
 public:
-    explicit cercaWidget(ricette* = nullptr,   QWidget* = nullptr);
+     cercaWidget(Model* model,  QWidget* = nullptr);
     QString getNome() const;
-    ricette* getR();
+
+    string getType() const;
 public slots:
     void cerca();
 

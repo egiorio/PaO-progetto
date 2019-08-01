@@ -26,6 +26,7 @@ void Model::remove(ricette* x){
 void Model::save() const{
 
     xmlIO xmlio("../Documenti/p2/Save.xml");
+
     xmlio.write(contenitore);
 
 
@@ -64,35 +65,59 @@ ricette* Model::addO(const string type, const string name, double prezzo, bool c
 
 }
 
-std::vector<ricette*> Model::cercaR(const QString name)
+std::vector<ricette*> Model::cercaR(const QString name, const string type)
 {
-    string nome=name.toStdString();
+
+
     std::vector<ricette*> to_ret;
     for(auto it=contenitore.begin(); it!= contenitore.end(); ++it){
-        if(dynamic_cast<primo*>(&(*it))){
+       if(type == "Primo"){
+           primo* p = dynamic_cast<primo*>(*it);
+           if(p->getNome() == name.toStdString())
+               to_ret.push_back(p);
 
-            primo* p=dynamic_cast<primo*>(&(*it));
+        }
+       else{
+           if(type == "Secondo"){
+               secondo* s= dynamic_cast<secondo*>((*it));
+               if(s->getNome() == name.toStdString())
+                   to_ret.push_back(s);
+
+           }
+           else{
+               if(type ==  "Dolce"){
+                   dolce* d=dynamic_cast<dolce*>((*it));
+                   if(d->getNome() == name.toStdString())
+                       to_ret.push_back(d);
+
+               }
+           }
+       }
 
 
-            if(p->getNome() == nome)
+        /*if(dynamic_cast<primo*>((*it))){
+
+            primo* p=dynamic_cast<primo*>((*it));
+            if(p->getNome() == name.toStdString())
                 to_ret.push_back(p);
            }
         else{
-            if(dynamic_cast<secondo*>(&(*it))){
-                secondo* s= dynamic_cast<secondo*>(&(*it));
-                if(s->getNome() == nome)
+            if(dynamic_cast<secondo*>((*it))){
+                secondo* s= dynamic_cast<secondo*>((*it));
+                if(s->getNome() == name.toStdString())
                     to_ret.push_back(s);
             }
-            else{
-                if(dynamic_cast<dolce*>(&(*it))){
-                    dolce* d=dynamic_cast<dolce*>(&(*it));
-                    if(d->getNome() == nome)
+            else
+                if(dynamic_cast<dolce*>((*it))){
+                    dolce* d=dynamic_cast<dolce*>((*it));
+                    if(d->getNome() == name.toStdString())
                         to_ret.push_back(d);
                 }
 
             }
+            */
         }
-    }
+
     return to_ret;
 }
 

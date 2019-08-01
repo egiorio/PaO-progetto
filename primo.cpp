@@ -27,7 +27,16 @@ void primo::serialize(QXmlStreamWriter & output) const
 {
     output.writeStartElement("Ricette - Primo");
 
-    ricette::serialize(output);
+    output.writeStartElement("Nome ricetta:");
+    output.writeCharacters(QString::fromStdString(getNome()));
+    output.writeEndElement();
+
+    output.writeStartElement(("Prezzo"));
+    output.writeCharacters(QString::number(getPrezzo()));
+    output.writeEndElement();
+    output.writeStartElement("Cottura");
+    output.writeCharacters(getCottura() ? "true" : "false");
+    output.writeEndElement();
 
     output.writeStartElement("Tipo");
     output.writeCharacters(QString::fromStdString(getTipo()));
@@ -36,8 +45,8 @@ void primo::serialize(QXmlStreamWriter & output) const
     /*output.writeEndElement();
     if(output.hasError())
         throw  std::exception();
-*/
 
+*/
 
 
 
@@ -61,4 +70,17 @@ primo *primo::create(QXmlStreamReader & r) const
 
     r.skipCurrentElement();
     return new primo(nome, prezzo, cottura, tipo);
+}
+
+void primo::XML(QXmlStreamWriter &out) const
+{
+    out.writeStartElement("Primo");
+    ricette::XML(out);
+
+    out.writeStartElement("Tipo: ");
+    out.writeCharacters(QString::fromStdString(tipo));
+    out.writeEndElement();
+
+    out.writeEndElement();
+
 }
