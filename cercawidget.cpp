@@ -71,13 +71,6 @@ void cercaWidget::cerca()
 {
     cercaWidgetResult c(m);
     c.filtra(getNome(), getType());
-    //c.exec();
-   /* auto results = m->cercaR(getNome());
-    for(auto &x: results){
-        widget * ricette = new widget(x);
-        result->addWidget(ricette);
-    }
-*/
-    //show();
+
 
 }

@@ -19,29 +19,79 @@ xmlIO::xmlIO( QString path):
 
 Container<ricette> xmlIO::read() const
 {
-    Container<ricette> contenitore;
-    string a = FileName.toStdString();
-    QFile file(QString::fromStdString(a));
+
+
+    Container<ricette> load;//lista
+
+    QFile file(FileName);
+
+    //Aprire il file
+
     if(!file.open(QIODevice::ReadOnly)){
-        //QMessageBox box(QMessageBox::warning, "Errore di appertura", "Non è stato possibile aprire il file");
-        qWarning() <<"Non è stato possibile aprire il file";
-        return contenitore;
+        qWarning() <<"errore!";
+        return load;
     }
 
-    //se viene aperto
+    //lettura fa file
     QXmlStreamReader input(&file);
-    if(input.readNextStartElement() && input.name() == "root"){
-        try {
-            contenitore.push_back(*(ricette::unserialize(input)));
-        } catch (std::string s) {
-            qWarning() <<"Errore in lettura";
+    if(input.readNextStartElement()){
+        if(input.name() == "root"){
+            while(input.readNextStartElement()){
+                if(input.name() == "Ricette-Primo"){
+                    input.readNextStartElement();
+                    std::string nome = (input.readElementText().toStdString());
+                    input.readNextStartElement();
+                    double prezzo = (input.readElementText().toDouble());
+                    input.readNextStartElement();
+                    bool cottura = (input.readElementText()) == "true" ? true : false;
+                    input.readNextStartElement();
+
+                    std::string tipo = (input.readElementText().toStdString());
+                    primo* p= new primo(nome, prezzo, cottura, tipo);
+                    input.readNextStartElement();
+                    load.push_back(*p);
+
+                }
+                else{
+                    if(input.name() == "Ricette-Secondo"){
+                        input.readNextStartElement();
+                        std::string nome = (input.readElementText().toStdString());
+                        input.readNextStartElement();
+                        double prezzo = (input.readElementText().toDouble());
+                        input.readNextStartElement();
+                        bool cottura = (input.readElementText()) == "true" ? true : false;
+                        input.readNextStartElement();
+                        std::string tipo = (input.readElementText().toStdString());
+
+                        secondo * s= new secondo(nome, prezzo, cottura, tipo);
+                        input.readNextStartElement();
+                        load.push_back(*s);
+
+                    }
+                    else{
+                        if(input.name() == "Ricette-Dolce"){
+                            input.readNextStartElement();
+                            std::string nome = (input.readElementText().toStdString());
+                            input.readNextStartElement();
+                            double prezzo = (input.readElementText().toDouble());
+                            input.readNextStartElement();
+                            bool cottura = (input.readElementText()) == "true" ? true : false;
+                            input.readNextStartElement();
+                            std::string tipo = (input.readElementText().toStdString());
+                            input.readNextStartElement();
+                            dolce * d= new dolce(nome, prezzo, cottura, tipo);
+                            load.push_back(*d);
+                        }
+                        }
+                    }
+                }
+            }
         }
-    }
+
+    file.close();
+    return load;
 
 
-
-        file.close();
-        return  contenitore;
 
 }
 
@@ -62,15 +112,20 @@ void xmlIO::write(const Container<ricette> & contenitore) const
 
     output.writeStartElement("root");
 
+    if(contenitore.begin() == contenitore.end())
+        contenitore.begin()->serialize(output);
+    else{
+        auto cont = contenitore.begin();
+        while (cont  != contenitore.end()) {
 
-    auto cont = contenitore.begin();
-    while (cont  != contenitore.end()) {
-        (cont)->XML(output);
-        //(cont)->serialize(output);
-        ++cont;
+            (cont)->serialize(output);
+            ++cont;
 
-    }
+            if (cont == contenitore.end())
+                (contenitore.end()->serialize(output));
 
+        }
+       }
 
     output.writeEndElement();
     output.writeEndDocument();

@@ -9,7 +9,7 @@ class secondo: public ricette
 {
 private:
     string classeAlimentare; // se carne o pesce
-    virtual secondo* create(QXmlStreamReader&) const;
+
 public:
     secondo();
     secondo(string nome, double prezzo,  bool cottura,  string classeAlimentare );
@@ -21,7 +21,7 @@ public:
 
    virtual void serialize(QXmlStreamWriter&) const override;
 
-    void XML(QXmlStreamWriter& out) const;
+
 };
 
 #endif // SECONDO_H

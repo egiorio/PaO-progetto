@@ -15,10 +15,7 @@ private:
     string nome;
     double prezzo;
     bool cottura;
-    virtual ricette* create(QXmlStreamReader&) const = 0;
-/*protected:
-    static std::map<std::string, ricette*>mapp;
-    */
+
 public:
     ricette();
     ricette(string nome,  double prezzo,  bool cottura);
@@ -35,9 +32,9 @@ public:
 
      //SERIALIZZAZIONE DEI DATI
      virtual void serialize(QXmlStreamWriter&) const =0;
-     static ricette* unserialize(QXmlStreamReader&);
 
-     virtual void XML(QXmlStreamWriter& out) const;
+
+
 
 
 

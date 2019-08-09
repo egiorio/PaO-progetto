@@ -96,7 +96,7 @@ public:
     void insert(Iterator, unsigned int);
 
 
-    void push_back(const T&);
+    void push_back( T&);
     //void push_back(T* t);
 
     void push_front(const T&);
@@ -510,8 +510,8 @@ typename Container<T>::const_iterator Container<T>::cend()const{
     return const_iterator(ultimo);
 }
 template <class T>
-typename Container<T>::const_iterator Container<T>::clast() const{
-    return const_iterator(ultimo);
+typename Container<T>::const_iterator Container<T>::clast() const{ //ritorna il past the end
+    return const_iterator(ultimo->next);
 }
 
 template <class T>
@@ -562,8 +562,17 @@ void Container<T>::push_front(const T& t){
 
 //push_back
 template <class T>
-void Container<T>::push_back(const T& t){
-    insert(end(), t);
+void Container<T>::push_back( T& t){
+    //insert(end(), t);
+    if(primo == nullptr){
+        primo = ultimo = new nodo( &t, nullptr, nullptr);
+        size = 1;
+    }
+    else{
+        ultimo->next= new nodo( &t, ultimo, nullptr);
+        ultimo= ultimo->next;
+        size++;
+    }
 }
 
 #endif // CONTAINER1_H

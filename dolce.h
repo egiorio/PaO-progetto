@@ -7,20 +7,20 @@ using std::string;
 class dolce: public ricette
 {
 private:
-    string categoria;
-    virtual dolce*create(QXmlStreamReader&) const;
+    string categoria; //se vegano o non vegano
+
 
 public:
     dolce ( string ID,  double prezzo,   bool cottura,  string categoria);
     virtual ~dolce();
     string getCategoria() const;
-    dolce* clone() const;
+    dolce* clone() const override;
     virtual std::string TipoR() const override;
-    bool operator==(const ricette&) const;
+    bool operator==(const ricette&) const override;
 
 
     virtual void serialize(QXmlStreamWriter&) const override;
-    void XML(QXmlStreamWriter& out) const;
+
 };
 
 #endif // DOLCE_H

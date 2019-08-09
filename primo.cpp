@@ -25,9 +25,9 @@ bool primo::operator==(const ricette& a) const{
 
 void primo::serialize(QXmlStreamWriter & output) const
 {
-    output.writeStartElement("Ricette - Primo");
+    output.writeStartElement("Ricette-Primo");
 
-    output.writeStartElement("Nome ricetta:");
+    output.writeStartElement("Nome");
     output.writeCharacters(QString::fromStdString(getNome()));
     output.writeEndElement();
 
@@ -42,45 +42,13 @@ void primo::serialize(QXmlStreamWriter & output) const
     output.writeCharacters(QString::fromStdString(getTipo()));
     output.writeEndElement();
 
-    /*output.writeEndElement();
+    output.writeEndElement();
     if(output.hasError())
         throw  std::exception();
 
-*/
 
 
 
 
 }
 
-primo *primo::create(QXmlStreamReader & r) const
-{
-    std::string nome = "Senza nome";
-    double prezzo = 0.0;
-    bool cottura = true;
-    std::string tipo = "Onnivora";
-    if(r.readNextStartElement() && r.name()=="nome")
-        nome = r.readElementText().toStdString();
-    if(r.readNextStartElement() && r.name()=="prezzo")
-        prezzo = r.readElementText().toDouble();
-    if(r.readNextStartElement() && r.name()=="cottura")
-        cottura = r.readElementText() == "true"? true:false;
-    if(r.readNextStartElement() && r.name()=="tipo")
-        tipo = r.readElementText().toStdString();
-
-    r.skipCurrentElement();
-    return new primo(nome, prezzo, cottura, tipo);
-}
-
-void primo::XML(QXmlStreamWriter &out) const
-{
-    out.writeStartElement("Primo");
-    ricette::XML(out);
-
-    out.writeStartElement("Tipo: ");
-    out.writeCharacters(QString::fromStdString(tipo));
-    out.writeEndElement();
-
-    out.writeEndElement();
-
-}

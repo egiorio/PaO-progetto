@@ -9,7 +9,7 @@ class primo: public ricette
 {
 private:
 
-    string tipo;
+    string tipo; //se vegetariana o onnivora
 public:
     primo();
     primo(string nome,double prezzo, bool cottura,  string tipo);
@@ -20,9 +20,9 @@ public:
     bool operator==(const ricette&) const override;
 
     virtual void serialize(QXmlStreamWriter&) const override;
-    virtual primo* create(QXmlStreamReader&) const override;
 
-    void XML(QXmlStreamWriter& out) const;
+
+
 };
 
 #endif // PRIMO_H

@@ -1,23 +1,6 @@
 #include "dolce.h"
 
-dolce *dolce::create(QXmlStreamReader & r) const
-{
-    std::string nome = "Senza nome";
-    double prezzo = 0.0;
-    bool cottura = true;
-    std::string tipo = "Vegano";
-    if(r.readNextStartElement() && r.name()=="nome")
-        nome = r.readElementText().toStdString();
-    if(r.readNextStartElement() && r.name()=="prezzo")
-        prezzo = r.readElementText().toDouble();
-    if(r.readNextStartElement() && r.name()=="cottura")
-        cottura = r.readElementText() == "true"? true:false;
-    if(r.readNextStartElement() && r.name()=="tipo")
-        tipo = r.readElementText().toStdString();
 
-    r.skipCurrentElement();
-    return new dolce(nome, prezzo, cottura, tipo);
-}
 
 dolce::dolce(string a, double b, bool c, string s): ricette(a, b, c), categoria(s){}
 
@@ -55,21 +38,10 @@ void dolce::serialize(QXmlStreamWriter & output) const
      output.writeEndElement();
 
 
-    output.writeStartElement("Categoria Alimentare");
+    output.writeStartElement("Categoria");
     output.writeCharacters(QString::fromStdString(getCategoria()));
      output.writeEndElement();
 
      output.writeEndElement();
 }
 
-void dolce::XML(QXmlStreamWriter &out) const
-{
-    out.writeStartElement("Dolce");
-    ricette::XML(out);
-
-    out.writeStartElement("Categoria Alimentare: ");
-    out.writeCharacters(QString::fromStdString(categoria));
-    out.writeEndElement();
-
-    out.writeEndElement();
-}

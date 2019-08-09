@@ -1,4 +1,3 @@
-
 #include "mainwindow.h"
 #include "model.h"
 #include "container1.h"
@@ -8,6 +7,7 @@
 #include "cercawidget.h"
 #include "cercawidgetresult.h"
 
+
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
@@ -16,10 +16,11 @@
 #include<QWidget>
 #include<QMessageBox>
 #include <QGroupBox>
-
 #include <QFileDialog>
 #include <QPushButton>
 #include <QScrollArea>
+
+
 
 
 mainwindow::mainwindow(QWidget* parent):
@@ -163,10 +164,42 @@ void mainwindow::load()
     choose.setWindowTitle("Load");
     choose.setNameFilter("XML file (*.xml)");
 
-    if(choose.exec())
+    if(choose.exec()){
         m->load(choose.selectedFiles()[0]);
 
+     //emit ChangeR(m->getRicette());
+     //connect(parent, SIGNAL(ChangeR(Container<ricette>)), this, SLOT(update(Container<ricette>)));
+    update();
 
+
+
+
+    }
+
+
+}
+
+void mainwindow::update()
+{
+    //MI serve x cancellare se c'è qualcosa
+    if(centralGroupBox->count() != 0){
+        auto item = centralGroupBox->takeAt(0);
+        delete item->widget();
+        delete item;
+    }
+
+    //riempio la schermata
+    for(auto *r : m->getRicette())
+    {
+        widget *ric= new widget(r);
+        centralGroupBox->addWidget(ric);
+        //connect(ric, &widget::remove, this, &mainwindow::removeR);
+
+
+    }
+
+    centralGroupBox->addStretch(1);
+    show();
 }
 
 

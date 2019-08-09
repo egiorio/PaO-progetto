@@ -3,7 +3,7 @@
 
 
 
-//std::map<std::string, ricette*>  ricette::mapp =  std::map<std::string, ricette*>();
+
 ricette::ricette(string name, double money, bool cook) : nome(name), prezzo(money), cottura(cook){ }
 
 ricette::~ricette(){}
@@ -37,44 +37,4 @@ void ricette::setCottura(bool c)
 
 }
 
-ricette *ricette::unserialize(QXmlStreamReader & r)
-{/*
-    if(r.name() != "ricette")
-        throw std::string("Nome non corretto");
-    std::string temp = r.attributes().value("Tipo").toString().toStdString();
-    if(mapp.count(temp) == 0)
-        throw  std::string("non trovato");
-    return mapp[temp]->create(r);
 
-*/
-}
-
-void ricette::XML(QXmlStreamWriter &out) const
-{
-    out.writeStartElement("ricette: ");
-    out.writeCharacters(QString::fromStdString(nome));
-    out.writeEndElement();
-
-    out.writeStartElement(("Prezzo"));
-    out.writeCharacters(QString::number(prezzo));
-    out.writeEndElement();
-    out.writeStartElement("Cottura");
-    out.writeCharacters(cottura ? "true" : "false");
-    out.writeEndElement();
-}
-/*
-void ricette::serialize(QXmlStreamWriter & w) const{
-    w.writeStartElement("Nome ricetta:");
-    w.writeCharacters(QString::fromStdString(getNome()));
-    w.writeEndElement();
-
-    w.writeStartElement(("Prezzo"));
-    w.writeCharacters(QString::number(getPrezzo()));
-    w.writeEndElement();
-    w.writeStartElement("Cottura");
-    w.writeCharacters(getCottura() ? "true" : "false");
-    w.writeEndElement();
-
-
-}
-*/

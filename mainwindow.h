@@ -29,6 +29,7 @@ private:
 
 
 
+
 public:
     mainwindow(QWidget *p =nullptr);
     ~mainwindow() override = default;
@@ -40,8 +41,11 @@ public slots:
    void cercaR();
    void save();
    void load();
+   //void update(Container<ricette>);
+   void update();
 
-
+signals:
+   void ChangeR(Container<ricette>);
 
 
 };

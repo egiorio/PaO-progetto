@@ -18,7 +18,7 @@ private:
 
 public:
 
-    using Index= Container<ricette>::Iterator;
+    //using Index= Container<ricette>::Iterator;
 
     Model()= default;
     ~Model() = default;
@@ -27,6 +27,7 @@ public:
     //void save(const QString &) const;
     void save() const;
     void load(const QString&);
+    Container<ricette> getRicette();
     ricette* addO(const string,  const string, double, bool, const string);
 
     std::vector<ricette*> cercaR(const QString, const string);
