@@ -45,7 +45,7 @@ public slots:
    void update();
 
 signals:
-   void ChangeR(Container<ricette>);
+   void ChangeR();
 
 
 };

@@ -93,6 +93,9 @@ mainwindow::mainwindow(QWidget* parent):
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setCentralWidget(scroll);
 
+    //connect per la load
+    connect(this, SIGNAL(ChangeR()), this, SLOT(update()));
+
 
 
 }
@@ -164,17 +167,19 @@ void mainwindow::load()
     choose.setWindowTitle("Load");
     choose.setNameFilter("XML file (*.xml)");
 
-    if(choose.exec()){
+    if(choose.exec())
         m->load(choose.selectedFiles()[0]);
 
+    emit ChangeR();
+
      //emit ChangeR(m->getRicette());
-     //connect(parent, SIGNAL(ChangeR(Container<ricette>)), this, SLOT(update(Container<ricette>)));
-    update();
+    //connect(parent(), SIGNAL(ChangeR(Container<ricette>)), this, SLOT(update()));
+    //update();
 
 
 
 
-    }
+
 
 
 }
@@ -189,15 +194,19 @@ void mainwindow::update()
     }
 
     //riempio la schermata
-    for(auto *r : m->getRicette())
+    auto it= m->getRicette();
+
+    for(auto *r :it)
+
     {
         widget *ric= new widget(r);
         centralGroupBox->addWidget(ric);
-        //connect(ric, &widget::remove, this, &mainwindow::removeR);
+
 
 
     }
-
+    widget *ric=new widget(*it.end());
+    centralGroupBox->addWidget(ric);
     centralGroupBox->addStretch(1);
     show();
 }
