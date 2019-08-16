@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QRadioButton>
 
 #include "ricette.h"
 #include "model.h"
@@ -20,14 +21,19 @@ private:
     QLineEdit *name;
     QVBoxLayout *result;
     QComboBox *tipo_ricetta;
+    QComboBox *type;
+
+    QRadioButton *att;
 
 public:
-     cercaWidget(Model* model,  QWidget* = nullptr);
+    cercaWidget(Model* model,  QWidget* = nullptr);
     QString getNome() const;
-
     string getType() const;
+    string getAtt() const;
+
 public slots:
     void cerca();
+    void setFields(const QString&);
 
 
 };

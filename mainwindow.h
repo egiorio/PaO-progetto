@@ -9,6 +9,8 @@
 #include<QFile>
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include <QCheckBox>
+#include <QRadioButton>
 
 
 
@@ -25,6 +27,8 @@ private:
 //puntatore a model
     Model* m;
     QVBoxLayout *centralGroupBox;
+
+
 
 
 

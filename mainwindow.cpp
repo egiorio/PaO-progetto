@@ -172,9 +172,7 @@ void mainwindow::load()
 
     emit ChangeR();
 
-     //emit ChangeR(m->getRicette());
-    //connect(parent(), SIGNAL(ChangeR(Container<ricette>)), this, SLOT(update()));
-    //update();
+
 
 
 

@@ -418,7 +418,7 @@ void Container<T>::clear(){
 template <class T>
 void Container<T>::erase(T* w){
 
-    nodo* x;
+ nodo* x;
     nodo* z=this->primo;
     while(z && primo==z){
         if(z != NULL){
@@ -450,6 +450,8 @@ void Container<T>::erase(T* w){
         }
 
     }
+
+
 
 }
 //pop_back
@@ -569,7 +571,7 @@ void Container<T>::push_back( T& t){
         size = 1;
     }
     else{
-        ultimo->next= new nodo( &t, ultimo, nullptr);
+        ultimo->next= new nodo( &t, nullptr, ultimo);
         ultimo= ultimo->next;
         size++;
     }
