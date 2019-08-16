@@ -80,41 +80,61 @@ std::vector<ricette*> Model::cercaR(const QString name, const string type)
 
     if(name != ""){
         auto it= contenitore.begin();
-        while (it!= contenitore.last()){
-            primo * p=dynamic_cast<primo*>(*it);
-            if( p != nullptr && name.toStdString() == p->getNome())
+        while (it != contenitore.end()){
+            primo * p=static_cast<primo*>(*it);
+            if( p != nullptr && name.toStdString() == p->getNome()){
+
                 to_ret.push_back(p);
+            }
             else{
-                secondo* s=dynamic_cast<secondo*>(*it);
+                secondo* s=static_cast<secondo*>(*it);
                 if(s != nullptr && s->getNome()==name.toStdString())
                     to_ret.push_back(s);
                 else{
-                    dolce* d= dynamic_cast<dolce*>(*it);
+                    dolce* d= static_cast<dolce*>(*it);
                     if(d  != nullptr && d->getNome() != name.toStdString())
                         to_ret.push_back(d);
                 }
             }
             ++it;
+            if(it == contenitore.end()){
+                primo * p=static_cast<primo*>(*it);
+                if( p != nullptr && name.toStdString() == p->getNome()){
+
+                    to_ret.push_back(p);
+                }
+                else{
+                    secondo* s=static_cast<secondo*>(*it);
+                    if(s != nullptr && s->getNome()==name.toStdString())
+                        to_ret.push_back(s);
+                    else{
+                        dolce* d= static_cast<dolce*>(*it);
+                        if(d  != nullptr && d->getNome() != name.toStdString())
+                            to_ret.push_back(d);
+                    }
+                }
+
+            }
         }
         return to_ret;
     }
    else{
         auto it=contenitore.begin();
-        while(it!= (contenitore.last())){
+        while(it!= (contenitore.end())){
             if(type == "Primo"){
-                primo *p=dynamic_cast<primo*>(*it);
+                primo *p=static_cast<primo*>(*it);
                 if(p != nullptr)
                     to_ret.push_back(p);
             }
             else{
                 if(type == "Secondo"){
-                    secondo* s=dynamic_cast<secondo*>(*it);
+                    secondo* s=static_cast<secondo*>(*it);
                     if( s != nullptr)
                         to_ret.push_back(s);
                 }
                 else{
                     if(type == "Dolce"){
-                        dolce* d=dynamic_cast<dolce*>(*it);
+                        dolce* d=static_cast<dolce*>(*it);
                         if( d != nullptr)
                             to_ret.push_back(d);
                     }
@@ -122,6 +142,28 @@ std::vector<ricette*> Model::cercaR(const QString name, const string type)
             }
 
             it++;
+            if(it == contenitore.end()){
+                if(type == "Primo"){
+                    primo *p=static_cast<primo*>(*it);
+                    if(p != nullptr)
+                        to_ret.push_back(p);
+                }
+                else{
+                    if(type == "Secondo"){
+                        secondo* s=static_cast<secondo*>(*it);
+                        if( s != nullptr)
+                            to_ret.push_back(s);
+                    }
+                    else{
+                        if(type == "Dolce"){
+                            dolce* d=static_cast<dolce*>(*it);
+                            if( d != nullptr)
+                                to_ret.push_back(d);
+                        }
+                    }
+                }
+
+            }
      }
         return to_ret;
     }

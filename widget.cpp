@@ -135,12 +135,12 @@ void widget::modR()
 {
 
     addModifica edit_dialog(p->getPrezzo());
-    //if(edit_dialog.exec()){
+
     edit_dialog.exec();
        p->setPrezzo(edit_dialog.getP());
        p->setCottura(edit_dialog.getC());
 
-    //}
+
 
     emit change();
 }

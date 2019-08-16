@@ -12,15 +12,15 @@ class cercaWidgetResult: public QDialog
 {
     Q_OBJECT
 private:
-    QVBoxLayout *result;
+
     Model *m;
+    QVBoxLayout *result;
 
 public:
     explicit cercaWidgetResult(Model*, QWidget * parent = nullptr);
-    bool filtra(QString, string);
+    void filtra(QString, string);
 
-public slots:
-    int eccez();
+
 
 
 };

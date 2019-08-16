@@ -88,16 +88,17 @@ public:
     Iterator end();
     Iterator end() const;
     const_iterator cend() const;
-    Iterator last() const;
-    const_iterator clast() const;
+    Iterator last() ;
+    const_iterator clast();
+
      //iteratori per inserimento
     Iterator insert(const Iterator&, const T&);
-    //Iterator insert(const Iterator&, const T*);
+
     void insert(Iterator, unsigned int);
 
 
     void push_back( T&);
-    //void push_back(T* t);
+
 
     void push_front(const T&);
 
@@ -126,11 +127,7 @@ public:
 //costruttore di nodo
 template<class T>
 Container<T>::nodo::nodo(const DeepPtr<T> &t, nodo*p, nodo*n) : info(t), prev(p), next(n) {}
-/*
-template<class T>
-Container<T>::nodo::nodo(const T &t, nodo *n, nodo*p):
-    info(t),  prev(p), next(n) {}
-*/
+
 template <class T>
 Container<T>::nodo::nodo(T *t, nodo *n, nodo*p):
     info(t), next(n), prev(p){}
@@ -511,14 +508,15 @@ template <class T>
 typename Container<T>::const_iterator Container<T>::cend()const{
     return const_iterator(ultimo);
 }
-template <class T>
-typename Container<T>::const_iterator Container<T>::clast() const{ //ritorna il past the end
-    return const_iterator(ultimo->next);
-}
+
 
 template <class T>
-typename Container<T>::Iterator Container<T>::last() const{ //ritorna il past the end
-    return Iterator(ultimo->next);
+typename Container<T>::Iterator Container<T>::last() { //ritorna il past the end
+    return Iterator(nullptr);
+}
+template <class T>
+typename Container<T>::const_iterator Container<T>::clast(){
+    return const_iterator(nullptr);
 }
 
 template <class T>
