@@ -10,13 +10,13 @@ class widget: public QFrame
 {
     Q_OBJECT
 private:
-    //Model::Index ric;
+
     ricette* p;
     Model *m;
 
 
 public:
-    explicit widget(/*const Model::Index&,*/ ricette*,   QWidget * = nullptr);
+    explicit widget( ricette*,   QWidget * = nullptr);
     ricette* getRicetta() const;
 
 signals:

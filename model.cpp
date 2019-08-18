@@ -115,8 +115,10 @@ std::vector<ricette*> Model::cercaR(const QString name, const string type)
                 }
 
             }
+
         }
         return to_ret;
+
     }
    else{
         auto it=contenitore.begin();
@@ -164,8 +166,9 @@ std::vector<ricette*> Model::cercaR(const QString name, const string type)
                 }
 
             }
+
      }
-        return to_ret;
+    return to_ret;
     }
 
 

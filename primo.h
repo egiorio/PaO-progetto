@@ -9,13 +9,13 @@ class primo: public ricette
 {
 private:
 
-    string tipo; //se vegetariana o onnivora
+    std::string tipo; //se vegetariana o onnivora
 public:
     primo();
     primo(string nome,double prezzo, bool cottura,  string tipo);
     virtual ~primo() override;
     primo* clone() const override;
-    string getTipo()const;
+    std::string getTipo()const;
     virtual std::string TipoR() const override;
     bool operator==(const ricette&) const override;
 

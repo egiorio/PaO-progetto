@@ -4,7 +4,7 @@
 
 dolce::dolce(string a, double b, bool c, string s): ricette(a, b, c), categoria(s){}
 
-string dolce::getCategoria() const{
+std::string dolce::getCategoria() const{
     return categoria;
 }
 dolce::~dolce(){}

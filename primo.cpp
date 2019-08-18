@@ -9,7 +9,7 @@ primo* primo::clone() const{
 
 }
 
-string primo::getTipo()const {
+std::string primo::getTipo()const {
     return tipo;
 }
 

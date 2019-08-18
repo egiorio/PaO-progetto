@@ -7,7 +7,7 @@ using std::string;
 class dolce: public ricette
 {
 private:
-    string categoria; //se vegano o non vegano
+    std::string categoria; //se vegano o non vegano
 
 
 public:

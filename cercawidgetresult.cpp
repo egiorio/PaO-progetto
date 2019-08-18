@@ -5,7 +5,7 @@
 #include <QScrollArea>
 
 cercaWidgetResult::cercaWidgetResult(Model* model, QWidget* parent):
-    QDialog (parent),
+    QDialog  (parent),
     m(model),
     result(new QVBoxLayout)
 {
@@ -29,7 +29,7 @@ cercaWidgetResult::cercaWidgetResult(Model* model, QWidget* parent):
     main_l->addWidget(scroll);
 
 
-main_l->addLayout(result);
+    main_l->addLayout(result);
 
     setLayout(main_l);
     show();
@@ -47,6 +47,9 @@ void cercaWidgetResult::filtra(QString name, string tipo)
             widget *w=new widget(*x);
             result->addWidget(w);
             ++x;
+
+
+
             if(x == resul.end()){
                 widget*ric=new widget(*resul.end());
                 result->addWidget(ric);
@@ -54,18 +57,11 @@ void cercaWidgetResult::filtra(QString name, string tipo)
 
 
         }
-
+    //setLayout(result);
 
 
     show();
 
-   //}
-    //else {
-
-
-
-        //return false;
-    //}
 
 }
 

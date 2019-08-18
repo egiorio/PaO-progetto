@@ -12,7 +12,7 @@ using std::string;
 class ricette
 {
 private:
-    string nome;
+    std::string nome;
     double prezzo;
     bool cottura;
 
@@ -20,7 +20,7 @@ public:
     ricette();
     ricette(string nome,  double prezzo,  bool cottura);
      virtual ~ricette();
-     string getNome() const;
+     std::string getNome() const;
      double getPrezzo() const;
      bool getCottura() const;
      void setNome(string&) ;

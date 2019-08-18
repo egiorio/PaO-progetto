@@ -8,7 +8,7 @@ using std::string;
 class secondo: public ricette
 {
 private:
-    string classeAlimentare; // se carne o pesce
+    std::string classeAlimentare; // se carne o pesce
 
 public:
     secondo();

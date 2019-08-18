@@ -3,7 +3,7 @@
 
 secondo::secondo(string  a, double b, bool c, string s): ricette(a, b, c), classeAlimentare(s){}
 
-string secondo::getClasse() const{
+std::string secondo::getClasse() const{
     return classeAlimentare;
 }
 secondo::~secondo(){}

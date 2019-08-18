@@ -8,7 +8,7 @@ ricette::ricette(string name, double money, bool cook) : nome(name), prezzo(mone
 
 ricette::~ricette(){}
 
-string ricette::getNome() const{
+std::string ricette::getNome() const{
     return nome;
 }
 double ricette::getPrezzo() const{
